@@ -170,7 +170,7 @@ class BaseHTTPMiddleware:
             async def body_stream() -> typing.AsyncGenerator[bytes, None]:
                 async with recv_stream:
                     async for message in recv_stream:
-                        assert message["type"] == "http.response.body"
+                        assert message["type"] == "http.response.body", f"Unexpected message of type {message['type']} from class {type(self)}: {message}"  # noqa: E501
                         body = message.get("body", b"")
                         if body:
                             yield body
